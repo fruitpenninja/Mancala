@@ -48,15 +48,22 @@ public class MancalaBoard extends JPanel{
         double startX = BOARD_WIDTH * 0.4 / 2;
         for(int i = 0; i < PlayerAPits.length; i++){
             PlayerAPits[i] = new Pit(stoneCount, xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.72, BOARD_WIDTH * 0.08);
+            // save the ref of this pit to the data model
+            dataModel.setPlayerAPit(i, PlayerAPits[i]);
         }
 
         for(int i = 0; i < PlayerBPits.length; i++){
             PlayerBPits[i] = new Pit(stoneCount, xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH* 0.08);
+            // save the ref of this pit to the data model
+            dataModel.setPlayerBPit(i, PlayerAPits[i]);
         }
 
         //Initialize the Mancalas for each player
         PlayerAMancala = new Mancala(xPos + BOARD_WIDTH * 0.85, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.1, BOARD_HEIGHT * 0.8, BOARD_WIDTH* 0.08);
         PlayerBMancala = new Mancala(xPos + BOARD_WIDTH * 0.05, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.1, BOARD_HEIGHT * 0.8, BOARD_WIDTH* 0.08);
+        // Save these two Mancala reference to data model
+        dataModel.setPlayerAMancala(PlayerAMancala);
+        dataModel.setPlayerAMancala(PlayerBMancala);
         
     }
 
