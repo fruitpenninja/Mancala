@@ -5,11 +5,11 @@ import javax.swing.*;
 public class MancalaBoard extends JPanel{
     private DataModel dataModel;
     
-    private Pits[] Player1Pits;
-    private Pits[] Player2Pits;
+    private Pit[] PlayerAPits;
+    private Pit[] PlayerBPits;
     
-    private Mancala Player1Mancala;
-    private Mancala Player2Mancala;
+    private Mancala PlayerAMancala;
+    private Mancala PlayerBMancala;
     
     final double PANEL_WIDTH;
     final double PANEL_HEIGHT;
@@ -38,25 +38,25 @@ public class MancalaBoard extends JPanel{
         xPos = (PANEL_WIDTH - BOARD_WIDTH)/2;
         yPos = 20;
 
-        Player1Pits = new Pits[6];
-        Player2Pits = new Pits[6];
+        PlayerAPits = new Pit[6];
+        PlayerBPits = new Pit[6];
         
         // Get the number of stones for each pit
         stoneCount = dataModel.getNumStones();
 
         //Initialize the pits for each player
         double startX = BOARD_WIDTH * 0.4 / 2;
-        for(int i = 0; i < Player1Pits.length; i++){
-            Player1Pits[i] = new Pits(stoneCount, xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.72, BOARD_WIDTH * 0.08);
+        for(int i = 0; i < PlayerAPits.length; i++){
+            PlayerAPits[i] = new Pit(stoneCount, xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.72, BOARD_WIDTH * 0.08);
         }
 
-        for(int i = 0; i < Player2Pits.length; i++){
-            Player2Pits[i] = new Pits(stoneCount, xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH* 0.08);
+        for(int i = 0; i < PlayerBPits.length; i++){
+            PlayerBPits[i] = new Pit(stoneCount, xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH* 0.08);
         }
 
         //Initialize the Mancalas for each player
-        Player1Mancala = new Mancala(xPos + BOARD_WIDTH * 0.85, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.1, BOARD_HEIGHT * 0.8, BOARD_WIDTH* 0.08);
-        Player2Mancala = new Mancala(xPos + BOARD_WIDTH * 0.05, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.1, BOARD_HEIGHT * 0.8, BOARD_WIDTH* 0.08);
+        PlayerAMancala = new Mancala(xPos + BOARD_WIDTH * 0.85, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.1, BOARD_HEIGHT * 0.8, BOARD_WIDTH* 0.08);
+        PlayerBMancala = new Mancala(xPos + BOARD_WIDTH * 0.05, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.1, BOARD_HEIGHT * 0.8, BOARD_WIDTH* 0.08);
         
     }
 
@@ -68,11 +68,11 @@ public class MancalaBoard extends JPanel{
         Graphics2D g2 = (Graphics2D) g;
         RoundRectangle2D board = new RoundRectangle2D.Double(xPos, yPos, BOARD_WIDTH, BOARD_HEIGHT, 10, 10);
         g2.draw(board);
-        for(int pit = 0; pit < Player1Pits.length; pit++){
-            Player1Pits[pit].draw(g2);
-            Player2Pits[pit].draw(g2);
+        for(int pit = 0; pit < PlayerAPits.length; pit++){
+            PlayerAPits[pit].draw(g2);
+            PlayerBPits[pit].draw(g2);
         }
-        Player1Mancala.draw(g2);
-        Player2Mancala.draw(g2);
+        PlayerAMancala.draw(g2);
+        PlayerBMancala.draw(g2);
     }
 }

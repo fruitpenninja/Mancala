@@ -7,6 +7,9 @@ public class DataModel {
     private int panel1Height;
     private int numStones;
     
+    private Pit[] playerAPits;
+    private Pit[] playerBPits;
+    
     
     public DataModel(int frame_width, int frame_height, int numStones) {
         this.frameWidth = frame_width;      // 800
