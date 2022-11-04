@@ -7,8 +7,8 @@ public class MancalaBoard extends JPanel{
     private Pits[] Player2Pits;
     private Mancala Player1Mancala;
     private Mancala Player2Mancala;
-    final double BOARD_LENGTH = 400;
-    final double BOARD_WIDTH = 200;
+    final double BOARD_LENGTH = 600;
+    final double BOARD_WIDTH = 300;
     private double xPos;
     private double yPos;
 
@@ -18,11 +18,12 @@ public class MancalaBoard extends JPanel{
      * @param windowLength - length of JFrame containing the board
      * @param stoneCount - initial number of stones to fill each pit with
      */
-    public MancalaBoard(double windowHeight, double windowLength, int stoneCount){
-
+    public MancalaBoard(double windowWidth, double windowHeight, int stoneCount){
+        
+        setPreferredSize(new Dimension((int)windowWidth/2, (int)windowHeight/2));
         //Calculate coordiantes to draw board from
-        xPos = (windowLength - BOARD_LENGTH)/2;
-        yPos = (windowHeight - BOARD_WIDTH)/2;
+        xPos = (windowWidth - BOARD_LENGTH)/2;
+        yPos = 20;
 
         Player1Pits = new Pits[6];
         Player2Pits = new Pits[6];
