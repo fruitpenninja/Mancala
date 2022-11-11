@@ -2,7 +2,7 @@ import java.awt.geom.*;
 import java.awt.*;
 import java.util.*;
 
-public class Pits{
+public class Pit{
     private int stones;
     private double x;
     private double y;
@@ -18,7 +18,7 @@ public class Pits{
      * @param y - Top left y positiion of drawing area of pit
      * @param diameter - diameter of pit
      */
-    public Pits(int stoneCount, double x, double y, double diameter){
+    public Pit(int stoneCount, double x, double y, double diameter){
         stones = 0;
         this.x = x;
         this.y = y;
