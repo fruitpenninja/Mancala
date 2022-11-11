@@ -2,7 +2,7 @@ import java.awt.*;
 import java.awt.geom.*;
 import javax.swing.*;
 
-public class MancalaBoard extends JPanel{
+public class MancalaBoardPanel extends JPanel{
     private DataModel dataModel;
     
     private Pit[] PlayerAPits;
@@ -25,7 +25,7 @@ public class MancalaBoard extends JPanel{
      * A Mancala Board sizes according to the size of the window containing it and initializes how many stones all pits
      * @param dataModel - the data model holding all necessary data of the game
      */
-    public MancalaBoard(DataModel dataModel){
+    public MancalaBoardPanel(DataModel dataModel){
         this.dataModel = dataModel;
         this.PANEL_WIDTH = dataModel.getPanel1Width();      // 800  
         this.PANEL_HEIGHT = dataModel.getPanel1Height();    // 400
@@ -42,18 +42,18 @@ public class MancalaBoard extends JPanel{
         PlayerBPits = new Pit[6];
         
         // Get the number of stones for each pit
-        stoneCount = dataModel.getNumStones();
+//        stoneCount = dataModel.getNumStones();
 
         //Initialize the pits for each player
         double startX = BOARD_WIDTH * 0.4 / 2;
         for(int i = 0; i < PlayerAPits.length; i++){
-            PlayerAPits[i] = new Pit(stoneCount, xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.72, BOARD_WIDTH * 0.08);
+            PlayerAPits[i] = new Pit(dataModel.getStonesInPitsA()[i], xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.72, BOARD_WIDTH * 0.08);
             // save the ref of this pit to the data model
             dataModel.setPlayerAPit(i, PlayerAPits[i]);
         }
 
         for(int i = 0; i < PlayerBPits.length; i++){
-            PlayerBPits[i] = new Pit(stoneCount, xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH* 0.08);
+            PlayerBPits[i] = new Pit(dataModel.getStonesInPitsB()[i], xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH* 0.08);
             // save the ref of this pit to the data model
             dataModel.setPlayerBPit(i, PlayerAPits[i]);
         }
