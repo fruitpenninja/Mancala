@@ -47,20 +47,37 @@ public class MancalaBoardPanel extends JPanel{
         //Initialize the pits for each player
         double startX = BOARD_WIDTH * 0.4 / 2;
         for(int i = 0; i < PlayerAPits.length; i++){
-            PlayerAPits[i] = new Pit(dataModel.getStonesInPitsA()[i], xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.72, BOARD_WIDTH * 0.08);
+            if(dataModel.getStyleBoard() == 1){
+                PlayerAPits[i] = new StonePit(dataModel.getStonesInPitsA()[i], xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.72, BOARD_WIDTH * 0.08);
+            }
+            else{
+                PlayerAPits[i] = new NumberPit(dataModel.getStonesInPitsA()[i], xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.72, BOARD_WIDTH * 0.08);
+            }
             // save the ref of this pit to the data model
             dataModel.setPlayerAPit(i, PlayerAPits[i]);
         }
 
         for(int i = 0; i < PlayerBPits.length; i++){
-            PlayerBPits[i] = new Pit(dataModel.getStonesInPitsB()[i], xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH* 0.08);
+            if(dataModel.getStyleBoard() == 1){
+                PlayerBPits[i] = new StonePit(dataModel.getStonesInPitsB()[i], xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH* 0.08);
+            }
+            else{
+                PlayerBPits[i] = new NumberPit(dataModel.getStonesInPitsB()[i], xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH* 0.08);
+            }
             // save the ref of this pit to the data model
             dataModel.setPlayerBPit(i, PlayerAPits[i]);
         }
 
         //Initialize the Mancalas for each player
-        PlayerAMancala = new Mancala(xPos + BOARD_WIDTH * 0.85, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.1, BOARD_HEIGHT * 0.8, BOARD_WIDTH* 0.08);
-        PlayerBMancala = new Mancala(xPos + BOARD_WIDTH * 0.05, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.1, BOARD_HEIGHT * 0.8, BOARD_WIDTH* 0.08);
+        if(dataModel.getStyleBoard() == 1){
+            PlayerAMancala = new StoneMancala(xPos + BOARD_WIDTH * 0.85, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.1, BOARD_HEIGHT * 0.8, BOARD_WIDTH* 0.08);
+            PlayerBMancala = new StoneMancala(xPos + BOARD_WIDTH * 0.05, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.1, BOARD_HEIGHT * 0.8, BOARD_WIDTH* 0.08);
+        }
+        else{
+            PlayerAMancala = new NumberMancala(xPos + BOARD_WIDTH * 0.85, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.1, BOARD_HEIGHT * 0.8);
+            PlayerBMancala = new NumberMancala(xPos + BOARD_WIDTH * 0.05, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.1, BOARD_HEIGHT * 0.8);
+        }
+        
         // Save these two Mancala reference to data model
         dataModel.setPlayerAMancala(PlayerAMancala);
         dataModel.setPlayerAMancala(PlayerBMancala);

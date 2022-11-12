@@ -44,7 +44,7 @@ public class ChooseStylePanel extends JPanel{
                     int num = Integer.parseInt(content);
 //                    dataModel.setNumStones(num);
                     dataModel.initializeStonesInAllPits(num);
-                    dataModel.setStyleBoard(1);
+                    dataModel.setStyleBoard(2);
                 } catch (Exception error){
                     System.out.println("");     // Do nothing until user enter a number
                 } 

@@ -65,6 +65,9 @@ public class DataModel {
         this.styleBoard = styleBoard;
         changeStage(2);
     }
+    public int getStyleBoard(){
+        return styleBoard;
+    }
     public void attach(ChangeListener l) {
         listeners.add(l);
     }
