@@ -10,8 +10,6 @@ public class StoneMancala implements Pit{
     private double width;
     private double diameter;
     private ArrayList<Ellipse2D> stoneList;
-    private int currentRow = 1;
-    private int currentCol = 1;
 
     /**
      * A mancala is an elongated rectangle that holds the stones a player has won
@@ -35,18 +33,22 @@ public class StoneMancala implements Pit{
      * Adds a specifid number of stones to the Mancala
      * @param amount - number of stones to add
      */
-    public void addStones(int amount){
-        stones += amount;
-        while(stoneList.size() < stones){
-            if(currentRow > 12){
-                currentCol++;
-                currentRow = 1;
+    public void initializeStones(int amount){
+        if(stones < amount){
+            int currentRow = 1;
+            int currentCol = 1;
+            while(stoneList.size() < amount){
+                if(currentRow > 12){
+                    currentCol++;
+                    currentRow = 1;
+                }
+                double tempX = x + diameter/8 + diameter / 8 * currentCol;
+                double tempY = y + diameter/8 + diameter / 8 * currentRow;
+                stoneList.add(new Ellipse2D.Double(tempX, tempY, diameter/15, diameter/15));
+                currentRow++;
             }
-            double tempX = x + diameter/8 + diameter / 8 * currentCol;
-            double tempY = y + diameter/8 + diameter / 8 * currentRow;
-            stoneList.add(new Ellipse2D.Double(tempX, tempY, diameter/15, diameter/15));
-            currentRow++;
         }
+        stones = amount;
     }
 
     /**

@@ -8,8 +8,7 @@ public class StonePit implements Pit{
     private double y;
     private double diameter;
     private ArrayList<Ellipse2D> stoneList;
-    private int currentRow = 1;
-    private int currentCol = 1;
+    private Ellipse2D hole;
 
     /**
      * A pit of a given diameter contains an initial number of stones at a given location
@@ -24,36 +23,39 @@ public class StonePit implements Pit{
         this.y = y;
         this.diameter = diameter;
         stoneList = new ArrayList<Ellipse2D>();
-        addStones(stoneCount);
+        hole = new Ellipse2D.Double(x, y, diameter, diameter);
+        initializeStones(stoneCount);
     }
 
     /**
      * Adds the specified number of stones to the pit
      * @param amount - number of stones to add
      */
-    public void addStones(int amount){
-        stones += amount;
-        while(stoneList.size() < stones){
-            if(currentCol > 5){
-                currentRow++;
-                currentCol = 1;
+    public void initializeStones(int amount){
+        if(stones < amount){
+            int currentCol= 1;
+            int currentRow = 1;
+            while(stoneList.size() < amount){
+                if(currentCol > 5){
+                    currentRow++;
+                    currentCol = 1;
+                }
+                double tempX = x + diameter/8 + diameter / 8 * currentCol;
+                double tempY = y + diameter/8 + diameter / 8 * currentRow;
+                stoneList.add(new Ellipse2D.Double(tempX, tempY, diameter/15, diameter/15));
+                currentCol++;
             }
-            double tempX = x + diameter/8 + diameter / 8 * currentCol;
-            double tempY = y + diameter/8 + diameter / 8 * currentRow;
-            stoneList.add(new Ellipse2D.Double(tempX, tempY, diameter/15, diameter/15));
-            currentCol++;
         }
+        else{
+            for(int i = 0; i < amount; i++){
+                stoneList.remove(stoneList.size() - 1);
+            }
+        }
+        stones = amount;
     }
 
-    /**
-     * Removes a specified number of stones from the pit
-     * @param amount - number of stones to remove
-     */
-    public void removeStones(int amount){
-        stones -= amount;
-        for(int i = 0; i < amount; i++){
-            stoneList.remove(stoneList.size() - 1);
-        }
+    public boolean Clicked(int x, int y){
+        return hole.contains(x, y);
     }
 
     /**
@@ -69,7 +71,6 @@ public class StonePit implements Pit{
      * @param g2 - Graphics2D object for drawing the
      */
     public void draw(Graphics2D g2){
-        Ellipse2D hole = new Ellipse2D.Double(x, y, diameter, diameter);
         g2.draw(hole);
         for(int i = 0; i < stoneList.size(); i++){
             g2.draw(stoneList.get(i));

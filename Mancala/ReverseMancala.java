@@ -10,8 +10,6 @@ public class ReverseMancala implements Pit{
     private double width;
     private double diameter;
     private ArrayList<Ellipse2D> stoneList;
-    private int currentRow = 1;
-    private int currentCol = 1;
 
     public ReverseMancala(double x, double y, double length, double width, double diameter){
         stones = 0;
@@ -23,18 +21,22 @@ public class ReverseMancala implements Pit{
         stoneList = new ArrayList<Ellipse2D>();
     }
 
-    public void addStones(int amount){
-        stones += amount;
-        while(stoneList.size() < stones){
-            if(currentRow > 24){
-                currentCol++;
-                currentRow = 1;
+    public void initializeStones(int amount){
+        if(stones < amount){
+            int currentCol= 1;
+            int currentRow = 1;
+            while(stoneList.size() < amount){
+                if(currentRow > 24){
+                    currentCol++;
+                    currentRow = 1;
+                }
+                double tempX = x + length/2 - diameter/4 + diameter / 8 * currentCol;
+                double tempY = y + width/6 + diameter / 8 * currentRow;
+                stoneList.add(new Ellipse2D.Double(tempX, tempY, diameter/15, diameter/15));
+                currentRow++;
             }
-            double tempX = x + length/2 - diameter/4 + diameter / 8 * currentCol;
-            double tempY = y + width/6 + diameter / 8 * currentRow;
-            stoneList.add(new Ellipse2D.Double(tempX, tempY, diameter/15, diameter/15));
-            currentRow++;
         }
+        stones = amount;
     }
 
     public int getStoneCount(){
