@@ -16,8 +16,8 @@ public class DataModel {
     private int[] stonesInPitsA;
     private int[] stonesInPitsB;
     
-    private Mancala playerAMancala;
-    private Mancala playerBMancala;
+    private Pit playerAMancala;
+    private Pit playerBMancala;
     
     private ArrayList<ChangeListener> listeners;
     
@@ -115,11 +115,11 @@ public class DataModel {
         playerBPits[index] = p;
     }
     
-    public void setPlayerAMancala(Mancala m) {
+    public void setPlayerAMancala(Pit m) {
         playerAMancala = m;
     }
     
-    public void setPlayerBMancala(Mancala m) {
+    public void setPlayerBMancala(Pit m) {
         playerBMancala = m;
     }
 }
