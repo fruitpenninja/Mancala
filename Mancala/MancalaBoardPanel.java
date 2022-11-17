@@ -8,8 +8,8 @@ public class MancalaBoardPanel extends JPanel{
     private Pit[] PlayerAPits;
     private Pit[] PlayerBPits;
     
-    private Mancala PlayerAMancala;
-    private Mancala PlayerBMancala;
+    private Pit PlayerAMancala;
+    private Pit PlayerBMancala;
     
     final double PANEL_WIDTH;
     final double PANEL_HEIGHT;
@@ -51,7 +51,7 @@ public class MancalaBoardPanel extends JPanel{
                 PlayerAPits[i] = new StonePit(dataModel.getStonesInPitsA()[i], xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.72, BOARD_WIDTH * 0.08);
             }
             else{
-                PlayerAPits[i] = new NumberPit(dataModel.getStonesInPitsA()[i], xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.72, BOARD_WIDTH * 0.08);
+                PlayerAPits[i] = new ReversePit(dataModel.getStonesInPitsA()[i], xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.72, BOARD_WIDTH * 0.08);
             }
             // save the ref of this pit to the data model
             dataModel.setPlayerAPit(i, PlayerAPits[i]);
@@ -62,7 +62,7 @@ public class MancalaBoardPanel extends JPanel{
                 PlayerBPits[i] = new StonePit(dataModel.getStonesInPitsB()[i], xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH* 0.08);
             }
             else{
-                PlayerBPits[i] = new NumberPit(dataModel.getStonesInPitsB()[i], xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH* 0.08);
+                PlayerBPits[i] = new ReversePit(dataModel.getStonesInPitsB()[i], xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH* 0.08);
             }
             // save the ref of this pit to the data model
             dataModel.setPlayerBPit(i, PlayerAPits[i]);
@@ -74,8 +74,8 @@ public class MancalaBoardPanel extends JPanel{
             PlayerBMancala = new StoneMancala(xPos + BOARD_WIDTH * 0.05, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.1, BOARD_HEIGHT * 0.8, BOARD_WIDTH* 0.08);
         }
         else{
-            PlayerAMancala = new NumberMancala(xPos + BOARD_WIDTH * 0.85, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.1, BOARD_HEIGHT * 0.8);
-            PlayerBMancala = new NumberMancala(xPos + BOARD_WIDTH * 0.05, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.1, BOARD_HEIGHT * 0.8);
+            PlayerAMancala = new ReverseMancala(xPos + BOARD_WIDTH * 0.85, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.1, BOARD_HEIGHT * 0.8, BOARD_WIDTH* 0.08);
+            PlayerBMancala = new ReverseMancala(xPos + BOARD_WIDTH * 0.05, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.1, BOARD_HEIGHT * 0.8, BOARD_WIDTH* 0.08);
         }
         
         // Save these two Mancala reference to data model
