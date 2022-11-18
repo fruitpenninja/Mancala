@@ -8,22 +8,16 @@ public class DataModel {
     private int panel1Width;
     private int panel1Height;
     
-//    private int numStones;
-    
-    private Pit[] playerAPits;
-    private Pit[] playerBPits;
-    
     private int[] stonesInPitsA;
     private int[] stonesInPitsB;
     
-    private Pit playerAMancala;
-    private Pit playerBMancala;
+    private int stonesInMancalaA;
+    private int stonesInMancalaB;
     
     private ArrayList<ChangeListener> listeners;
     
     private int stage;
     private int styleBoard;
-    
     
     public DataModel(int frame_width, int frame_height) {
         this.frameWidth = frame_width;      // 800
@@ -31,9 +25,6 @@ public class DataModel {
         
         this.panel1Width = frame_width;             // 800
         this.panel1Height = frame_height / 2;       // 400
-        
-        playerAPits = new Pit[6];
-        playerBPits = new Pit[6];
         
         stonesInPitsA = new int[6];
         stonesInPitsB = new int[6];
@@ -50,7 +41,57 @@ public class DataModel {
         for (int i =0; i < stonesInPitsB.length; i++) {
             stonesInPitsB[i] = num;
         }
+        
+        stonesInMancalaA = 0;
+        stonesInMancalaB = 0;
     }
+    
+    public void distributeStonesInPitA(int index) {
+        int numStones = stonesInPitsA[index];
+        stonesInPitsA[index] = 0;
+        
+        // PUT ALL THIS STONES TO THE NEXT PIT
+        int nextPit = index + 1;
+        System.out.println("This pit A: " + index + " next pit A: " + nextPit);
+        if (nextPit < stonesInPitsA.length) {
+            System.out.println("Move from pit A" + index + " to pit A" + nextPit);
+            stonesInPitsA[nextPit] += numStones;
+        }
+        else {
+            stonesInMancalaA += numStones;
+            System.out.println("Add to mancala A, holding: " + stonesInMancalaA);
+        }
+        
+        // reflect change
+        for (ChangeListener l : listeners) {
+            l.stateChanged(null);
+        }
+        
+    }
+    
+    public void distributeStonesInPitB(int index) {
+        int numStones = stonesInPitsB[index];
+        stonesInPitsB[index] = 0;
+        
+        // PUT ALL THIS STONES TO THE NEXT PIT
+        int nextPit = index - 1;
+        System.out.println("This pit B: " + index + " next pit B: " + nextPit);
+        if (nextPit >= 0) {
+            System.out.println("Move from pit B" + index + " to pit B" + nextPit);
+            stonesInPitsB[nextPit] += numStones;
+        }
+        else {
+            stonesInMancalaB += numStones;
+            System.out.println("Add to mancala B, holding: " + stonesInMancalaB);
+        }
+        
+        // reflect change
+        for (ChangeListener l : listeners) {
+            l.stateChanged(null);
+        }
+        
+    }
+    
     
     public int[] getStonesInPitsA() {
         return stonesInPitsA;
@@ -58,6 +99,13 @@ public class DataModel {
     
     public int[] getStonesInPitsB() {
         return stonesInPitsB;
+    }
+    
+    public int getStonesInMancalaA() {
+        return stonesInMancalaA;
+    }
+    public int getStonesInMancalaB() {
+        return stonesInMancalaB;
     }
     
     
@@ -97,29 +145,5 @@ public class DataModel {
     
     public int getFrameHeight() {
         return frameHeight;
-    }
-    
-//    public int getNumStones() {
-//        return numStones;
-//    }
-//    
-//    public void setNumStones(int numStones) {
-//        this.numStones = numStones;
-//    }
-    
-    public void setPlayerAPit(int index, Pit p) {
-        playerAPits[index] = p;
-    }
-    
-    public void setPlayerBPit(int index, Pit p) {
-        playerBPits[index] = p;
-    }
-    
-    public void setPlayerAMancala(Pit m) {
-        playerAMancala = m;
-    }
-    
-    public void setPlayerBMancala(Pit m) {
-        playerBMancala = m;
     }
 }

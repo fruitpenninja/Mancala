@@ -26,14 +26,11 @@ public class ChooseStylePanel extends JPanel{
                 String content = textField.getText().strip();
                 try {
                     int num = Integer.parseInt(content);
-//                    dataModel.setNumStones(num);
                     dataModel.initializeStonesInAllPits(num);
                     dataModel.setStyleBoard(1);
                 } catch (Exception error){
                     System.out.println("");     // Do nothing until user enter a number
                 } 
-                
-                
             }
         });
         
@@ -42,14 +39,11 @@ public class ChooseStylePanel extends JPanel{
                 String content = textField.getText().strip();
                 try {
                     int num = Integer.parseInt(content);
-//                    dataModel.setNumStones(num);
                     dataModel.initializeStonesInAllPits(num);
                     dataModel.setStyleBoard(2);
                 } catch (Exception error){
                     System.out.println("");     // Do nothing until user enter a number
                 } 
-                
-                
             }
         });
         

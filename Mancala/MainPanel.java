@@ -49,7 +49,10 @@ public class MainPanel extends JPanel implements ChangeListener{
         }
         // board game changing while two players playing game 
         else {
-            
+            //UPDATE STONE BEFORE VALIDATE
+            mancalaBoardPanel.updateStones();
+            this.validate();        // MUST HAVE TO REDRAW AND DISPLAY THIS PANEL AGAIN (only repaint() is not enough)
+            repaint();
         }
     }
     // stage 1 - asking for a style
