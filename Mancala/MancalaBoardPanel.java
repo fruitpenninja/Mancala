@@ -79,13 +79,15 @@ public class MancalaBoardPanel extends JPanel implements ChangeListener{
                 boolean found = false;
                 for (int i = 0; i < playerAPits.length; i++) {
                     if (!found && playerAPits[i].Clicked(e.getPoint())) {
-                        System.out.println("CLICK ON A PIT OF PLAYER A, PIT# " + i);
-                        dataModel.distributeStonesInPitA(i);
+                        //System.out.println("CLICK ON A PIT OF PLAYER A, PIT# " + i);
+                        //dataModel.distributeStonesInPitA(i);
+                        dataModel.distributeStones("A", i);
                         break;
                     }
                     if (!found && playerBPits[i].Clicked(e.getPoint())) {
-                        System.out.println("CLICK ON A PIT OF PLAYER B, PIT# " + i);
-                        dataModel.distributeStonesInPitB(i);
+                        //System.out.println("CLICK ON A PIT OF PLAYER B, PIT# " + i);
+                        //dataModel.distributeStonesInPitB(i);
+                        dataModel.distributeStones("B", i);
                         break;
                     }
                 }

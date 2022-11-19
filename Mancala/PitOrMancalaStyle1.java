@@ -68,14 +68,26 @@ public class PitOrMancalaStyle1 implements GeneralShape{
         int currentCol= 1;
         int currentRow = 1;
         while(stoneList.size() < numStones){
-            if((type.equalsIgnoreCase("pit") && currentCol > 5) || (type.equalsIgnoreCase("mancala") && currentCol > 12)){
-                currentRow++;
-                currentCol = 1;
+            if(type.equals("pit")){
+                if(currentCol > 5){
+                    currentRow++;
+                    currentCol = 1;
+                }
+                double tempX = x + diameterStone/8 + diameterStone / 8 * currentCol;
+                double tempY = y + diameterStone/8 + diameterStone / 8 * currentRow;
+                stoneList.add(new Ellipse2D.Double(tempX, tempY, diameterStone/15, diameterStone/15));
+                currentCol++;
             }
-            double tempX = x + diameterStone/8 + diameterStone / 8 * currentCol;
-            double tempY = y + diameterStone/8 + diameterStone / 8 * currentRow;
-            stoneList.add(new Ellipse2D.Double(tempX, tempY, diameterStone/15, diameterStone/15));
-            currentCol++;
+            else{
+                if(currentRow > 12){
+                    currentCol++;
+                    currentRow = 1;
+                }
+                double tempX = x + 3*diameterStone/8 + diameterStone / 8 * currentCol;
+                double tempY = y + diameterStone + diameterStone / 8 * currentRow;
+                stoneList.add(new Ellipse2D.Double(tempX, tempY, diameterStone/15, diameterStone/15));
+                currentRow++;
+            }
         }
     }
 

@@ -92,6 +92,58 @@ public class DataModel {
         
     }
     
+    public void distributeStones(String player, int location){
+        int stonesToDistribute = 0;
+        int currentLocation = 0;
+        if(player.equals("A")){
+            stonesToDistribute = stonesInPitsA[location];
+            currentLocation = location + 1;
+            stonesInPitsA[location] = 0;
+        }
+        else{
+            //If the player is B, th
+            stonesToDistribute = stonesInPitsB[location];
+            if(location == 0){
+                currentLocation = 13;
+            }
+            else{
+                currentLocation = 12 - location + 1;
+            }
+            stonesInPitsB[location] = 0;
+        }
+
+        while(stonesToDistribute > 0){
+            if(currentLocation < 6){
+                //currentLocations 0-5, corresponds to PitsA 0 - 5
+                stonesInPitsA[currentLocation]++;
+            }
+            else if(currentLocation == 6){
+                //currentLocation = 6 corresponds to Mancala A
+                stonesInMancalaA++;
+            }
+            else if(currentLocation < 13){
+                //currentLocations 7-12, corresponds to PitsB 5 - 0 since stone distribution must be in reverse order
+                stonesInPitsB[12 - currentLocation]++;
+            }
+            else{
+                //currentLocation = 13 corresponds to Mancala B
+                stonesInMancalaB++;
+            }
+
+            if(currentLocation == 13){
+                currentLocation = 0;
+            }
+            else{
+                currentLocation++;
+            }
+            stonesToDistribute--;
+        }
+
+        // reflect change
+        for (ChangeListener l : listeners) {
+            l.stateChanged(null);
+        }
+    }
     
     public int[] getStonesInPitsA() {
         return stonesInPitsA;

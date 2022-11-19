@@ -15,6 +15,8 @@ public class PitOrMancalaStyle2 implements GeneralShape{
     private String type;
     private DataModel dataModel;
     private int index;
+    private double width;
+    private double height;
 
     /**
      * A pit of a given diameter contains an initial number of stones at a given location
@@ -33,6 +35,8 @@ public class PitOrMancalaStyle2 implements GeneralShape{
         this.numStones = numStones;
         this.x = x;
         this.y = y;
+        this.width = width;
+        this.height = height;
         this.diameterStone = diameter;
         stoneList = new ArrayList<Ellipse2D>();
         
@@ -67,14 +71,26 @@ public class PitOrMancalaStyle2 implements GeneralShape{
         int currentCol= 1;
         int currentRow = 1;
         while(stoneList.size() < numStones){
-            if((type.equalsIgnoreCase("pit") && currentCol > 5) || (type.equalsIgnoreCase("mancala") && currentCol > 12)){
-                currentRow++;
-                currentCol = 1;
+            if(type.equals("pit")){
+                if(currentCol > 5){
+                    currentRow++;
+                    currentCol = 1;
+                }
+                double tempX = x + diameterStone/8 + diameterStone / 8 * currentCol;
+                double tempY = y + diameterStone/8 + diameterStone / 8 * currentRow;
+                stoneList.add(new Ellipse2D.Double(tempX, tempY, diameterStone/15, diameterStone/15));
+                currentCol++;
             }
-            double tempX = x + diameterStone/8 + diameterStone / 8 * currentCol;
-            double tempY = y + diameterStone/8 + diameterStone / 8 * currentRow;
-            stoneList.add(new Ellipse2D.Double(tempX, tempY, diameterStone/15, diameterStone/15));
-            currentCol++;
+            else{
+                if(currentRow > 24){
+                    currentCol++;
+                    currentRow = 1;
+                }
+                double tempX = x + width/2 - diameterStone/4 + diameterStone / 8 * currentCol;
+                double tempY = y + height/6 + diameterStone / 8 * currentRow;
+                stoneList.add(new Ellipse2D.Double(tempX, tempY, diameterStone/15, diameterStone/15));
+                currentRow++;
+            }
         }
     }
     
