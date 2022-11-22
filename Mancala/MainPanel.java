@@ -51,6 +51,7 @@ public class MainPanel extends JPanel implements ChangeListener{
         else {
             //UPDATE STONE BEFORE VALIDATE
             mancalaBoardPanel.updateStones();
+            informationPanel.update();
             this.validate();        // MUST HAVE TO REDRAW AND DISPLAY THIS PANEL AGAIN (only repaint() is not enough)
             repaint();
         }
