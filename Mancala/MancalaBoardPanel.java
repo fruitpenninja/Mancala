@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.*;
@@ -39,7 +40,7 @@ public class MancalaBoardPanel extends JPanel implements ChangeListener{
         
         //Calculate coordiantes to draw board from
         xPos = (PANEL_WIDTH - BOARD_WIDTH)/2;
-        yPos = 20;
+        yPos = 24;
         
         playerAPits = new GeneralShape[6];
         playerBPits = new GeneralShape[6];
@@ -66,7 +67,7 @@ public class MancalaBoardPanel extends JPanel implements ChangeListener{
             playerAMancala = new PitOrMancalaStyle2("mancala", dataModel, dataModel.getStonesInMancalaA(), 10, xPos + BOARD_WIDTH * 0.85, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.1, BOARD_HEIGHT * 0.8, BOARD_WIDTH* 0.08);
             playerBMancala = new PitOrMancalaStyle2("mancala", dataModel, dataModel.getStonesInMancalaB(), 20, xPos + BOARD_WIDTH * 0.05, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.1, BOARD_HEIGHT * 0.8, BOARD_WIDTH* 0.08);
         }
-
+        dataModel.initializeGame();
         // Mouse Listener
         MouseAdapter listenersForPits = mouseListeners();
         this.addMouseListener(listenersForPits);
@@ -102,6 +103,21 @@ public class MancalaBoardPanel extends JPanel implements ChangeListener{
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+
+        Font currentFont = g2.getFont();
+        Font newFont = currentFont.deriveFont(currentFont.getSize() * 1.5F);
+        g2.setFont(newFont);
+        FontMetrics fm = g2.getFontMetrics();
+        
+        g2.drawString("Player B", (float)(PANEL_WIDTH - fm.stringWidth("Player B"))/2, fm.getAscent());
+        g2.drawString("Player A", (float)(PANEL_WIDTH - fm.stringWidth("Player B"))/2, (float)(yPos + BOARD_HEIGHT + fm.getAscent()));
+
+        String mB= "MANCALA B";
+        String mA = "MANCALA A";
+        for(int i = 0; i < mB.length(); i++){
+            g2.drawString(mB.substring(i, i+1), (float)(xPos - fm.stringWidth("M")), (float)((yPos + (BOARD_HEIGHT - mB.length() * (fm.getAscent() + fm.getDescent()))/2 + (i + 1)  * (fm.getAscent() + fm.getDescent()))));
+            g2.drawString(mA.substring(i, i+1), (float)(xPos + 1 + BOARD_WIDTH), (float)((yPos + (BOARD_HEIGHT - mB.length() * (fm.getAscent() + fm.getDescent()))/2 + (i + 1)  * (fm.getAscent() + fm.getDescent()))));
+        }
         RoundRectangle2D board = new RoundRectangle2D.Double(xPos, yPos, BOARD_WIDTH, BOARD_HEIGHT, 10, 10);
         g2.draw(board);
         for(int pit = 0; pit < playerAPits.length; pit++){
@@ -119,7 +135,7 @@ public class MancalaBoardPanel extends JPanel implements ChangeListener{
         
     }
     
-    public void updateStones() {
+   /* */ public void updateStones() {
         // update stone list of all pits of player A and B, as well as both mancala
         for (int i = 0; i < playerAPits.length; i++) {
             playerAPits[i].populateStones(dataModel.getStonesInPitsA()[i]);
