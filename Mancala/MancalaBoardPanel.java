@@ -79,13 +79,13 @@ public class MancalaBoardPanel extends JPanel implements ChangeListener{
             public void mousePressed(MouseEvent e) {
                 boolean found = false;
                 for (int i = 0; i < playerAPits.length; i++) {
-                    if (!found && playerAPits[i].Clicked(e.getPoint())) {
+                    if (!found && playerAPits[i].Clicked(e.getPoint()) && playerAPits[i].getStoneCount() > 0) {
                         //System.out.println("CLICK ON A PIT OF PLAYER A, PIT# " + i);
                         //dataModel.distributeStonesInPitA(i);
                         dataModel.distributeStones("A", i);
                         break;
                     }
-                    if (!found && playerBPits[i].Clicked(e.getPoint())) {
+                    if (!found && playerBPits[i].Clicked(e.getPoint()) && playerBPits[i].getStoneCount() > 0) {
                         //System.out.println("CLICK ON A PIT OF PLAYER B, PIT# " + i);
                         //dataModel.distributeStonesInPitB(i);
                         dataModel.distributeStones("B", i);
@@ -118,6 +118,13 @@ public class MancalaBoardPanel extends JPanel implements ChangeListener{
             g2.drawString(mB.substring(i, i+1), (float)(xPos - fm.stringWidth("M")), (float)((yPos + (BOARD_HEIGHT - mB.length() * (fm.getAscent() + fm.getDescent()))/2 + (i + 1)  * (fm.getAscent() + fm.getDescent()))));
             g2.drawString(mA.substring(i, i+1), (float)(xPos + 1 + BOARD_WIDTH), (float)((yPos + (BOARD_HEIGHT - mB.length() * (fm.getAscent() + fm.getDescent()))/2 + (i + 1)  * (fm.getAscent() + fm.getDescent()))));
         }
+        String [] PitALabels = {"A1", "A2", "A3", "A4", "A5", "A6"};
+        String [] PitBLabels = {"B6", "B5", "B4", "B3", "B2", "B1"};
+        for(int col = 0; col < 6; col++){
+            g2.drawString(PitALabels[col], (float)(xPos + BOARD_WIDTH * 0.4 / 2 + BOARD_WIDTH * col * 0.1 + (BOARD_WIDTH * 0.08 - fm.stringWidth(PitALabels[col])) / 2), (float)(yPos + BOARD_HEIGHT * 0.72 + fm.getAscent() + BOARD_WIDTH * 0.08));
+            g2.drawString(PitBLabels[col], (float)(xPos + BOARD_WIDTH * 0.4 / 2 + BOARD_WIDTH * col * 0.1 + (BOARD_WIDTH * 0.08 - fm.stringWidth(PitBLabels[col])) / 2), (float)(yPos + BOARD_HEIGHT * 0.1 - 3));
+        }
+        
         RoundRectangle2D board = new RoundRectangle2D.Double(xPos, yPos, BOARD_WIDTH, BOARD_HEIGHT, 10, 10);
         g2.draw(board);
         for(int pit = 0; pit < playerAPits.length; pit++){

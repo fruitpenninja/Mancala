@@ -162,7 +162,6 @@ public class DataModel {
             //Carry on with the game otherwise
             else{
                 //If last pit to get stone belongs to player A
-                System.out.println(lastStoneDrop);
                 if(lastStoneDrop >= 0 && lastStoneDrop < 6){
                     //If that pit was empty, player A gets the last stone and the stones in opposite pit of Player B
                     if(stonesInPitsA[lastStoneDrop] == 1 && activePlayer.equals("A")){
