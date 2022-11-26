@@ -13,7 +13,6 @@ public class PitOrMancalaStyle1 implements GeneralShape{
     private GeneralPath path;
     private String type;
     private DataModel dataModel;
-    private int index;
 
     /**
      * A pit of a given diameter contains an initial number of stones at a given location
@@ -24,7 +23,7 @@ public class PitOrMancalaStyle1 implements GeneralShape{
      */
     
     // need tp adjust, pass in the diameter of stone instead of diameterPit
-    public PitOrMancalaStyle1(String type, DataModel data, int numStones, int index, double x, double y, double width, double height, double diameter){
+    public PitOrMancalaStyle1(String type, DataModel data, int numStones, double x, double y, double width, double height, double diameter){
         this.type = type;
         dataModel = data;
         path = new GeneralPath();
@@ -48,7 +47,6 @@ public class PitOrMancalaStyle1 implements GeneralShape{
             
         }
         
-        this.index = index;
         populateStones(numStones);        // MIGHT NEED TO DELETE PARAMETER PASSED IN TO METHOD AND IN INTERFACE ALSO
     }
 
@@ -57,8 +55,6 @@ public class PitOrMancalaStyle1 implements GeneralShape{
      * @param amount - number of stones to add
      */
     public void populateStones(int numStones){    // MIGHT NEED TO DELETE PARAMETER numStones PASSED IN TO METHOD AND IN INTERFACE ALSO
-//        if(stones < amount){
-        
         // remove all stones inside the pit before set new value;
         while (stoneList.size() != 0) {
             stoneList.remove(stoneList.size()-1);
@@ -93,14 +89,6 @@ public class PitOrMancalaStyle1 implements GeneralShape{
 
     public boolean Clicked(Point2D p){
         return path.contains(p);
-    }
-
-    /**
-     * Gives the current number of stones in a pit
-     * @return - number of stones the pit currently has
-     */
-    public int getStoneCount(){
-        return numStones;
     }
 
     /**

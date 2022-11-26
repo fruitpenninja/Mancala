@@ -5,8 +5,6 @@ import javax.swing.*;
 
 public class InformationPanel extends JPanel{
 
-//    private final int PANEL_WIDTH;
-//    private final int PANEL_HEIGHT;
       private DataModel dataModel;
       private JLabel undoCount;
       private JLabel gameState;
@@ -14,10 +12,6 @@ public class InformationPanel extends JPanel{
       private JButton resetButton;
     
     public InformationPanel(final DataModel dataModel) {
-//        PANEL_WIDTH = dataModel.getFrameWidth();                
-//        PANEL_HEIGHT = dataModel.getFrameHeight() / 2 - 20;
-//        
-//        this.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
         
         this.dataModel = dataModel;
         
@@ -31,7 +25,7 @@ public class InformationPanel extends JPanel{
         gameState = new JLabel(dataModel.getGameMessage());
         undoPanel = new JPanel();
 
-        undoCount = new JLabel("Remaining undos: " + dataModel.undosLeft());
+        undoCount = new JLabel("Remaining undos for A: " + dataModel.getRemainingUndoA() + ". Remaining undos for B: " + dataModel.getRemainingUndoB());
 
         JButton undoButton = new JButton("UNDO");
         undoButton.addActionListener(new ActionListener() {
@@ -58,7 +52,7 @@ public class InformationPanel extends JPanel{
             gameState.setText(dataModel.getGameMessage() + " Press reset to start a new game.");
         }
         else{
-            undoCount.setText("Remaining undos: " + dataModel.undosLeft());
+            undoCount.setText("Remaining undos for A: " + dataModel.getRemainingUndoA() + "\nRemaining undos for B: " + dataModel.getRemainingUndoB());
             gameState.setText(dataModel.getGameMessage());
         }
     }

@@ -50,22 +50,22 @@ public class MancalaBoardPanel extends JPanel implements ChangeListener{
         double startX = BOARD_WIDTH * 0.4 / 2;
         for(int i = 0; i < playerAPits.length; i++){
             if(dataModel.getStyleBoard() == 1){
-                playerAPits[i] = new PitOrMancalaStyle1("pit", dataModel, dataModel.getStonesInPitsA()[i], i, xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.72, BOARD_WIDTH * 0.08, BOARD_WIDTH * 0.08, BOARD_WIDTH * 0.08);
-                playerBPits[i] = new PitOrMancalaStyle1("pit", dataModel, dataModel.getStonesInPitsB()[i], i, xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.08, BOARD_WIDTH * 0.08, BOARD_WIDTH * 0.08);
+                playerAPits[i] = new PitOrMancalaStyle1("pit", dataModel, dataModel.getStonesInPitsA()[i], xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.72, BOARD_WIDTH * 0.08, BOARD_WIDTH * 0.08, BOARD_WIDTH * 0.08);
+                playerBPits[i] = new PitOrMancalaStyle1("pit", dataModel, dataModel.getStonesInPitsB()[i], xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.08, BOARD_WIDTH * 0.08, BOARD_WIDTH * 0.08);
             }
             else if (dataModel.getStyleBoard() == 2){
-                playerAPits[i] = new PitOrMancalaStyle2("pit", dataModel, dataModel.getStonesInPitsA()[i], i, xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.72, BOARD_WIDTH * 0.08, BOARD_WIDTH * 0.08, BOARD_WIDTH * 0.08);
-                playerBPits[i] = new PitOrMancalaStyle2("pit", dataModel, dataModel.getStonesInPitsB()[i], i, xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.08, BOARD_WIDTH * 0.08, BOARD_WIDTH * 0.08);
+                playerAPits[i] = new PitOrMancalaStyle2("pit", dataModel, dataModel.getStonesInPitsA()[i], xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.72, BOARD_WIDTH * 0.08, BOARD_WIDTH * 0.08, BOARD_WIDTH * 0.08);
+                playerBPits[i] = new PitOrMancalaStyle2("pit", dataModel, dataModel.getStonesInPitsB()[i], xPos + startX + BOARD_WIDTH * i * 0.1, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.08, BOARD_WIDTH * 0.08, BOARD_WIDTH * 0.08);
             }
         }
 
         //Initialize the Mancalas for each player
         if(dataModel.getStyleBoard() == 1){
-            playerAMancala = new PitOrMancalaStyle1("mancala", dataModel, dataModel.getStonesInMancalaA(), 10, xPos + BOARD_WIDTH * 0.85, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.1, BOARD_HEIGHT * 0.8, BOARD_WIDTH* 0.08);
-            playerBMancala = new PitOrMancalaStyle1("mancala", dataModel, dataModel.getStonesInMancalaB(), 20, xPos + BOARD_WIDTH * 0.05, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.1, BOARD_HEIGHT * 0.8, BOARD_WIDTH* 0.08);        }
+            playerAMancala = new PitOrMancalaStyle1("mancala", dataModel, dataModel.getStonesInMancalaA(), xPos + BOARD_WIDTH * 0.85, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.1, BOARD_HEIGHT * 0.8, BOARD_WIDTH* 0.08);
+            playerBMancala = new PitOrMancalaStyle1("mancala", dataModel, dataModel.getStonesInMancalaB(), xPos + BOARD_WIDTH * 0.05, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.1, BOARD_HEIGHT * 0.8, BOARD_WIDTH* 0.08);        }
         else if(dataModel.getStyleBoard() == 2){
-            playerAMancala = new PitOrMancalaStyle2("mancala", dataModel, dataModel.getStonesInMancalaA(), 10, xPos + BOARD_WIDTH * 0.85, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.1, BOARD_HEIGHT * 0.8, BOARD_WIDTH* 0.08);
-            playerBMancala = new PitOrMancalaStyle2("mancala", dataModel, dataModel.getStonesInMancalaB(), 20, xPos + BOARD_WIDTH * 0.05, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.1, BOARD_HEIGHT * 0.8, BOARD_WIDTH* 0.08);
+            playerAMancala = new PitOrMancalaStyle2("mancala", dataModel, dataModel.getStonesInMancalaA(), xPos + BOARD_WIDTH * 0.85, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.1, BOARD_HEIGHT * 0.8, BOARD_WIDTH* 0.08);
+            playerBMancala = new PitOrMancalaStyle2("mancala", dataModel, dataModel.getStonesInMancalaB(), xPos + BOARD_WIDTH * 0.05, yPos + BOARD_HEIGHT * 0.1, BOARD_WIDTH * 0.1, BOARD_HEIGHT * 0.8, BOARD_WIDTH* 0.08);
         }
         dataModel.initializeGame();
         // Mouse Listener
@@ -79,13 +79,14 @@ public class MancalaBoardPanel extends JPanel implements ChangeListener{
             public void mousePressed(MouseEvent e) {
                 boolean found = false;
                 for (int i = 0; i < playerAPits.length; i++) {
-                    if (!found && playerAPits[i].Clicked(e.getPoint()) && playerAPits[i].getStoneCount() > 0) {
+                    if (!found && playerAPits[i].Clicked(e.getPoint()) && dataModel.getStonesInPitsA()[i] > 0) {
                         //System.out.println("CLICK ON A PIT OF PLAYER A, PIT# " + i);
-                        //dataModel.distributeStonesInPitA(i);
+                        // only distribute and switch player if that pit has > 0 stones
+                        
                         dataModel.distributeStones("A", i);
                         break;
                     }
-                    if (!found && playerBPits[i].Clicked(e.getPoint()) && playerBPits[i].getStoneCount() > 0) {
+                    if (!found && playerBPits[i].Clicked(e.getPoint()) && dataModel.getStonesInPitsB()[i] > 0) {
                         //System.out.println("CLICK ON A PIT OF PLAYER B, PIT# " + i);
                         //dataModel.distributeStonesInPitB(i);
                         dataModel.distributeStones("B", i);

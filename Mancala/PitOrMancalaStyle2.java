@@ -11,10 +11,8 @@ public class PitOrMancalaStyle2 implements GeneralShape{
     private double diameterStone;
     private ArrayList<Ellipse2D> stoneList;
     private GeneralPath path;
-//    private Ellipse2D hole;
     private String type;
     private DataModel dataModel;
-    private int index;
     private double width;
     private double height;
 
@@ -27,7 +25,7 @@ public class PitOrMancalaStyle2 implements GeneralShape{
      */
     
     // need tp adjust, pass in the diameter of stone instead of diameterPit
-    public PitOrMancalaStyle2(String type, DataModel data, int numStones, int index, double x, double y, double width, double height, double diameter){
+    public PitOrMancalaStyle2(String type, DataModel data, int numStones, double x, double y, double width, double height, double diameter){
         this.type = type;
         dataModel = data;
         path = new GeneralPath();
@@ -53,7 +51,6 @@ public class PitOrMancalaStyle2 implements GeneralShape{
             
         }
         
-        this.index = index;
         populateStones(numStones);        
     }
 
@@ -96,14 +93,6 @@ public class PitOrMancalaStyle2 implements GeneralShape{
     
     public boolean Clicked(Point2D p){
         return path.contains(p);
-    }
-
-    /**
-     * Gives the current number of stones in a pit
-     * @return - number of stones the pit currently has
-     */
-    public int getStoneCount(){
-        return numStones;
     }
 
     /**

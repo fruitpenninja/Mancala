@@ -12,7 +12,7 @@ public class ChooseStylePanel extends JPanel{
         this.dataModel = dataModel;
         
         JLabel label1 = new JLabel("Enter the number of stones for each pit");
-        JLabel label2 = new JLabel("min:  - max:  ");
+        JLabel label2 = new JLabel("Min: 3 - Max: 4");
         JLabel label3 = new JLabel("and choose a style for board game");
         
         final JTextField textField = new JTextField();
@@ -26,8 +26,10 @@ public class ChooseStylePanel extends JPanel{
                 String content = textField.getText().strip();
                 try {
                     int num = Integer.parseInt(content);
-                    dataModel.initializeStonesInAllPits(num);
-                    dataModel.setStyleBoard(1);
+                    if (num == 3 || num == 4) {
+                        dataModel.initializeStonesInAllPits(num);
+                        dataModel.setStyleBoard(1);
+                    }
                 } catch (Exception error){
                     System.out.println("");     // Do nothing until user enter a number
                 } 
@@ -39,8 +41,10 @@ public class ChooseStylePanel extends JPanel{
                 String content = textField.getText().strip();
                 try {
                     int num = Integer.parseInt(content);
-                    dataModel.initializeStonesInAllPits(num);
-                    dataModel.setStyleBoard(2);
+                    if (num == 3 || num == 4) {
+                        dataModel.initializeStonesInAllPits(num);
+                        dataModel.setStyleBoard(2);
+                    }
                 } catch (Exception error){
                     System.out.println("");     // Do nothing until user enter a number
                 } 
