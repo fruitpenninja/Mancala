@@ -7,6 +7,11 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+/**
+ * This class represents a mancala board panel
+ * @author Quang Le, Brian Tran, Moe Pyae Sone
+ *
+ */
 public class MancalaBoardPanel extends JPanel implements ChangeListener{
     private DataModel dataModel;
     
@@ -74,6 +79,9 @@ public class MancalaBoardPanel extends JPanel implements ChangeListener{
         this.addMouseMotionListener(listenersForPits);
     }
     
+    /**
+     * This class creates and returns a MouseAdapter object for mouse listener and mouse motion listener 
+     */
     public MouseAdapter mouseListeners() {
         return new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
@@ -99,7 +107,7 @@ public class MancalaBoardPanel extends JPanel implements ChangeListener{
     }
 
     /**
-     * Paint component method for drawing the board and it's pits and Mancalas
+     * Paint component method for drawing the board, pits, and mancalas
      */
     public void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -143,8 +151,8 @@ public class MancalaBoardPanel extends JPanel implements ChangeListener{
         
     }
     
-   /* */ public void updateStones() {
-        // update stone list of all pits of player A and B, as well as both mancala
+    // update stone list of all pits of player A and B, as well as both mancala
+    public void updateStones() {
         for (int i = 0; i < playerAPits.length; i++) {
             playerAPits[i].populateStones(dataModel.getStonesInPitsA()[i]);
             playerBPits[i].populateStones(dataModel.getStonesInPitsB()[i]);

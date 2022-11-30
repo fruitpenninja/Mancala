@@ -1,24 +1,25 @@
-import java.util.*;
 import java.awt.*;
-//import java.awt.event.ActionEvent;
-
 import javax.swing.*;
 import javax.swing.event.*;
 
+/**
+ * This class represents the main panel to display everything for the game
+ * @author Quang Le, Brian Tran, Moe Pyae Sone
+ *
+ */
 public class MainPanel extends JPanel implements ChangeListener{
-    private final int PANEL_WIDTH;      // 800
-    private final int PANEL_HEIGHT;     // 800
-    
+    private final int PANEL_WIDTH;      
+    private final int PANEL_HEIGHT;   
     private DataModel dataModel;
-    
     private ChooseStylePanel chooseStylePanel;
     private MancalaBoardPanel mancalaBoardPanel;
     private InformationPanel informationPanel;
-    
     private int stage;
     
-    private JPanel mainPanel;
-    
+    /**
+     * Constructor 
+     * @param dataModel - a data model to reference when needed
+     */
     public MainPanel(DataModel dataModel) {
         PANEL_WIDTH = dataModel.getFrameWidth();
         PANEL_HEIGHT = dataModel.getFrameHeight();
@@ -33,8 +34,10 @@ public class MainPanel extends JPanel implements ChangeListener{
     }
     
     
+    /**
+     * Get notified when change happens in the model
+     */
     public void stateChanged(ChangeEvent e) {
-        
         // figure out what type of change first
         // stage of game changed
         if (dataModel.getStage() != this.stage) {
@@ -49,44 +52,43 @@ public class MainPanel extends JPanel implements ChangeListener{
         }
         // board game changing while two players playing game 
         else {
-            //UPDATE STONE BEFORE VALIDATE
+            //UPDATE STONE BEFORE VALIDATE AND REPAINT
             mancalaBoardPanel.updateStones();
             informationPanel.update();
-            this.validate();        // MUST HAVE TO REDRAW AND DISPLAY THIS PANEL AGAIN (only repaint() is not enough)
+            this.validate();        
             repaint();
         }
     }
-    // stage 1 - asking for a style
+    
+    /**
+     * Initialize stage 1 -  asking for a style
+     */
     public void initializeStage1() {
-        // remove all current components on this main panel if needed;
+        // remove all current components on this main panel
         this.removeAll();
-        
         
        chooseStylePanel = new ChooseStylePanel(dataModel);
        this.add(chooseStylePanel, BorderLayout.NORTH);
        
-       
-       this.validate();        // MUST HAVE TO REDRAW AND DISPLAY THIS PANEL AGAIN (only repaint() is not enough)
+       this.validate();        
        repaint();
     }
     
-    // stage 2 - board game appears, starts the game
+    /**
+     * Initialize stage 2 - board game appears, starts the game
+     */
     public  void initializeStage2() {
         // remove all current components before proceeding this stage
         this.removeAll();
         
-     // potentially, check the value of styleBoard in dataModel to initialize the correct style for board game
         mancalaBoardPanel = new MancalaBoardPanel(dataModel);
         informationPanel = new InformationPanel(dataModel);
-        
         
         this.add(mancalaBoardPanel, BorderLayout.NORTH);
         this.add(informationPanel, BorderLayout.CENTER);
         
-        this.validate();        // MUST HAVE TO REDRAW AND DISPLAY THIS PANEL AGAIN (only repaint() is not enough)
+        this.validate();
         repaint();
         
     }
-    
-    
 }

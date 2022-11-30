@@ -1,8 +1,12 @@
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
 
+/** 
+ * 
+ * @author Quang Le, Brian Tran, Moe Pyae Sone
+ *
+ */
 public class ChooseStylePanel extends JPanel{
     
     private final DataModel dataModel;

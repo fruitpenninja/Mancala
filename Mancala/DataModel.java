@@ -1,7 +1,11 @@
 import java.util.*;
-
 import javax.swing.event.ChangeListener;
 
+/**
+ * This class represents a data model in MVC for this Mancala game
+ * @author Quang Le, Brian Tran, Moe Pyae Sone
+ *
+ */
 public class DataModel {
     private int frameWidth;
     private int frameHeight;
@@ -29,15 +33,19 @@ public class DataModel {
     private int remainingUndoB;
     private String activePlayer;
     private String gameMessage;
-    
     private boolean switchPlayers;
     
+    /**
+     * Constructor
+     * @param frame_width - width of main frame
+     * @param frame_height - height of main frame
+     */
     public DataModel(int frame_width, int frame_height) {
-        this.frameWidth = frame_width;      // 800
-        this.frameHeight = frame_height;    // 800
+        this.frameWidth = frame_width;      
+        this.frameHeight = frame_height;   
         
-        this.panel1Width = frame_width;             // 800
-        this.panel1Height = frame_height / 2;       // 400
+        this.panel1Width = frame_width;            
+        this.panel1Height = frame_height / 2;      
         
         stonesInPitsA = new int[6];
         stonesInPitsB = new int[6];
@@ -45,9 +53,11 @@ public class DataModel {
         listeners = new ArrayList<>();
         stage = 1;
         styleBoard = 0;
-        
     }
 
+    /**
+     * Initialize game's condition
+     */
     public void initializeGame(){
         double player = Math.random();
         if(player > 0.5){
@@ -64,6 +74,10 @@ public class DataModel {
         gameOver = false; 
     }
     
+    /**
+     * Initialize/set a number of stones for all pits
+     * @param num - initialize number of stones
+     */
     public void initializeStonesInAllPits(int num) {
         for (int i =0; i < stonesInPitsA.length; i++) {
             stonesInPitsA[i] = num;
@@ -76,6 +90,11 @@ public class DataModel {
         stonesInMancalaB = 0;
     }
     
+    /**
+     * Distribute stones of one pit
+     * @param player - current player turn
+     * @param location - location of a pit
+     */
     public void distributeStones(String player, int location){
         int stonesToDistribute = 0;
         int currentLocation = 0;
@@ -228,6 +247,51 @@ public class DataModel {
         }
     }
 
+    /**
+     * Set board game's style
+     */
+    public void setStyleBoard(int styleBoard) {
+        this.styleBoard = styleBoard;
+        changeStage(2);
+    }
+    
+    /**
+     * Get current board game's style
+     */
+    public int getStyleBoard(){
+        return styleBoard;
+    }
+    
+    /** 
+     * Attach a ChangeListener object to notify when change happens
+     * @param l
+     */
+    public void attach(ChangeListener l) {
+        listeners.add(l);
+    }
+    
+    /**
+     * Get current stage of game
+     */
+    public int getStage() {
+        return stage;
+    }
+    
+    /**
+     * Change current stage of game
+     * @param stage - new stage
+     */
+    public void changeStage(int stage) {
+        this.stage = stage;
+        for (ChangeListener l : listeners) {
+            l.stateChanged(null);
+        }
+        
+    }
+    
+    /** 
+     * This method is called when undo is used by a player
+     */
     public void undoMove(){
         if(canUndo){
             // CHANGE active player if last stone wasn't in player's mancala. Reduce remaining undos of player appropriately
@@ -272,6 +336,9 @@ public class DataModel {
         }        
     }
     
+    /**
+     * Reverse stones in all pits and mancala to previous state
+     */
     public void reverseStonesInPitsAndMancalas() {
      // REVERSE STONES IN ALL PITS AND MANCALA
         stonesInMancalaA = prevStonesInMancalaA;
@@ -281,19 +348,30 @@ public class DataModel {
         canUndo = false;
     }
     
+    /**
+     * Get number of available remaining undo of A
+     */
     public int getRemainingUndoA() {
         return remainingUndoA;
     }
     
+    /**
+     * Get number of available remaining undo of B
+     */
     public int getRemainingUndoB() {
         return remainingUndoB;
     }
     
-    
+    /**
+     * Check if game is over
+     */
     public boolean isGameOver(){
         return gameOver;
     }
-
+    
+    /**
+     * Check if all A's pits are empty
+     */
     public boolean check_A_All_Zero(){
         for(int i = 0; i < stonesInPitsA.length; i++){
             if(stonesInPitsA[i] != 0){
@@ -303,6 +381,9 @@ public class DataModel {
         return true;
     }
 
+    /**
+     * Check if all B's pits are empty
+     */
     public boolean check_B_All_Zero(){
         for(int i = 0; i < stonesInPitsB.length; i++){
             if(stonesInPitsB[i] != 0){
@@ -312,6 +393,9 @@ public class DataModel {
         return true;
     }
 
+    /**
+     * Determine the winner
+     */
     public void determineWinner(){
         if(stonesInMancalaA > stonesInMancalaB){
             gameMessage = "Player A wins!";
@@ -324,6 +408,7 @@ public class DataModel {
         }
     }
 
+    // GETTER AND SETTER METHODS
     public String getGameMessage(){
         return gameMessage;
     }
@@ -341,29 +426,6 @@ public class DataModel {
     }
     public int getStonesInMancalaB() {
         return stonesInMancalaB;
-    }
-    
-    
-    public void setStyleBoard(int styleBoard) {
-        this.styleBoard = styleBoard;
-        changeStage(2);
-    }
-    public int getStyleBoard(){
-        return styleBoard;
-    }
-    public void attach(ChangeListener l) {
-        listeners.add(l);
-    }
-    public int getStage() {
-        return stage;
-    }
-    
-    public void changeStage(int stage) {
-        this.stage = stage;
-        for (ChangeListener l : listeners) {
-            l.stateChanged(null);
-        }
-        
     }
     
     public int getPanel1Width() {

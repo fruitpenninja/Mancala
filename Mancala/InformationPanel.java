@@ -3,18 +3,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
+/**
+ * This class represents an information panel 
+ * @author Quang Le, Brian Tran, Moe Pyae Sone
+ *
+ */
 public class InformationPanel extends JPanel{
-
       private DataModel dataModel;
       private JLabel undoCount;
       private JLabel gameState;
       private JPanel undoPanel;
       private JButton resetButton;
     
+    /**
+     * Constructor
+     * @param dataModel - a data model to reference
+     */
     public InformationPanel(final DataModel dataModel) {
-        
         this.dataModel = dataModel;
-        
         resetButton = new JButton("RESET");          // This button potentially be used when game's over, announce winner, reset game
         resetButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -36,15 +42,15 @@ public class InformationPanel extends JPanel{
         undoPanel.add(undoButton);
         undoPanel.add(undoCount);
         
-        // more components added here
-        
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         
-        //this.add(resetButton);
         this.add(gameState);
         this.add(undoPanel); 
     }
     
+    /**
+     * Update the panel
+     */
     public void update(){
         if(dataModel.isGameOver()){
             remove(undoPanel);

@@ -3,7 +3,11 @@ import java.awt.*;
 import java.util.*;
 import javax.swing.event.ChangeListener;
 
-// THIS IS STYLE 1
+/**
+ * This class (Concrete class) represent the shape for pit/mancala in style 1
+ * @author Quang Le, Brian Tran, Moe Pyae Sone
+ *
+ */
 public class PitOrMancalaStyle1 implements GeneralShape{
     private int numStones;
     private double x;
@@ -15,14 +19,16 @@ public class PitOrMancalaStyle1 implements GeneralShape{
     private DataModel dataModel;
 
     /**
-     * A pit of a given diameter contains an initial number of stones at a given location
-     * @param stoneCount - Initial number of stones
-     * @param x - Top left x position of drawing area of pit
-     * @param y - Top left y positiion of drawing area of pit
-     * @param diameter - diameter of pit
+     * Constructor
+     * @param type - pit or mancala
+     * @param data - data model that the class can reference
+     * @param numStones - initial number of stones inside
+     * @param x - initial x position
+     * @param y - initial y position
+     * @param width - width of shape
+     * @param height - height of shape
+     * @param diameter - diameter of each stone
      */
-    
-    // need tp adjust, pass in the diameter of stone instead of diameterPit
     public PitOrMancalaStyle1(String type, DataModel data, int numStones, double x, double y, double width, double height, double diameter){
         this.type = type;
         dataModel = data;
@@ -34,33 +40,29 @@ public class PitOrMancalaStyle1 implements GeneralShape{
         this.diameterStone = diameter;
         stoneList = new ArrayList<Ellipse2D>();
         
-        if (type.equalsIgnoreCase("mancala")) {
-            // initialize mancala shape for style 1
+        if (type.equalsIgnoreCase("mancala")) {     // initialize mancala shape in style 1
             RoundRectangle2D mancalaShape = new RoundRectangle2D.Double(x, y, width, height, 10, 10);
             path.append(mancalaShape, false);
-            
         }
-        else if (type.equalsIgnoreCase("pit")) {
-            // initialize pit shape for style 1
+        else if (type.equalsIgnoreCase("pit")) {    // initialize pit shape in style 1
             Ellipse2D pitShape = new Ellipse2D.Double(x, y, width, height);
             path.append(pitShape, false);
-            
         }
         
-        populateStones(numStones);        // MIGHT NEED TO DELETE PARAMETER PASSED IN TO METHOD AND IN INTERFACE ALSO
+        populateStones(numStones);       
     }
 
     /**
-     * Adds the specified number of stones to the pit
+     * Adds the specified number of stones to the pit/mancala
      * @param amount - number of stones to add
      */
-    public void populateStones(int numStones){    // MIGHT NEED TO DELETE PARAMETER numStones PASSED IN TO METHOD AND IN INTERFACE ALSO
-        // remove all stones inside the pit before set new value;
+    public void populateStones(int numStones){
+        // remove all stones inside the pit/mancala
         while (stoneList.size() != 0) {
             stoneList.remove(stoneList.size()-1);
         }
         
-        // start populate stones to arraylist
+        // start populating stones and store to array list
         int currentCol= 1;
         int currentRow = 1;
         while(stoneList.size() < numStones){
@@ -87,12 +89,15 @@ public class PitOrMancalaStyle1 implements GeneralShape{
         }
     }
 
+    /**
+     * Check if this pit/mancala itself is clicked
+     */
     public boolean Clicked(Point2D p){
         return path.contains(p);
     }
 
     /**
-     * Drawing a pit and stones in it
+     * Drawing the shape for pit/mancala and stones
      * @param g2 - Graphics2D object for drawing the
      */
     public void draw(Graphics2D g2){
